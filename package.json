@@ -1,0 +1,24 @@
+{
+  "name": "loomi-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godiagonal/loomi-api.git"
+  },
+  "author": "Samuel Johansson & Emma Uddesson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/godiagonal/loomi-api/issues"
+  },
+  "homepage": "https://github.com/godiagonal/loomi-api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.2"
+  }
+}

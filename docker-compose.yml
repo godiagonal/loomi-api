@@ -1,0 +1,16 @@
+version: '3'
+services:
+  # app:
+  #   container_name: loomi-api
+  #   restart: always
+  #   build: .
+  #   ports:
+  #     - '80:3000'
+  #   links:
+  #     - loomi-db
+  db:
+    container_name: loomi-db
+    restart: always
+    image: mongo
+    ports:
+      - '27017:27017'
