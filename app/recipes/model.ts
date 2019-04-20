@@ -5,6 +5,7 @@ export interface IRecipe extends Document {
   link: string;
   body: string;
   created: Date;
+  updated: Date;
 }
 
 const RecipeSchema = new Schema({
@@ -19,6 +20,10 @@ const RecipeSchema = new Schema({
     type: String
   },
   created: {
+    type: Date,
+    default: Date.now
+  },
+  updated: {
     type: Date,
     default: Date.now
   }
