@@ -7,7 +7,7 @@ const controller = Router()
       .then(items => res.json(items))
       .catch(err => res.status(404).json(err));
   })
-  .post('/add', (req, res) => {
+  .post('/', (req, res) => {
     const newRecipe = new Recipe(req.body);
     newRecipe
       .save()
