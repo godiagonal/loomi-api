@@ -4,7 +4,22 @@ import { Recipe } from './model';
 const controller = Router()
   .get('/', async (req, res) => {
     try {
-      const recipes = await Recipe.find();
+      const searchCondition = req.query.search
+        ? { $regex: String(req.query.search), $options: 'i' }
+        : null;
+
+      const recipes = await Recipe.find(
+        searchCondition
+          ? {
+              $or: [
+                { name: searchCondition },
+                { body: searchCondition },
+                { link: searchCondition }
+              ]
+            }
+          : null
+      );
+
       res.json(recipes);
     } catch (err) {
       res.status(500).json(err);
