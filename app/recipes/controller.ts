@@ -12,7 +12,8 @@ const controller = Router()
   })
   .post('/', async (req, res) => {
     try {
-      const recipe = await new Recipe(req.body).save();
+      const { _id, ...body } = req.body; // Prevent id from being set manually
+      const recipe = await new Recipe(body).save();
       res.json(recipe);
     } catch (err) {
       res.status(400).json(err);
