@@ -15,4 +15,4 @@ express()
   .use(morgan('tiny'))
   .use('/recipes', recipesController)
   .use(errorHandler)
-  .listen(3000, () => console.log('Server running...'));
+  .listen(process.env.PORT || 3000, () => console.log('Server running...'));
