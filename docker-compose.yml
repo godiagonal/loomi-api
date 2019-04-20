@@ -12,5 +12,7 @@ services:
     container_name: loomi-db
     restart: always
     image: mongo
+    volumes:
+      - /Users/$USER/data/loomi-db:/data/db
     ports:
       - '27017:27017'
