@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import recipesController from './recipes';
+import errorHandler from './errorHandler';
 
 mongoose
   .connect('mongodb://localhost:27017/loomi-db', { useNewUrlParser: true })
@@ -13,5 +14,5 @@ express()
   .use(bodyParser.json())
   .use(morgan('tiny'))
   .use('/recipes', recipesController)
-  .use((req, res) => res.status(404).json({ message: 'Endpoint not found.' }))
+  .use(errorHandler)
   .listen(3000, () => console.log('Server running...'));
