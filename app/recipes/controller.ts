@@ -20,7 +20,9 @@ const controller = Router()
           : null
       );
 
-      res.json(recipes);
+      res.json(
+        recipes.sort((r1, r2) => Number(r2.updated) - Number(r1.updated))
+      );
     } catch (err) {
       res.status(500).json(err);
     }
