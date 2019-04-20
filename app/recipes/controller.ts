@@ -4,21 +4,24 @@ import { Recipe } from './model';
 const controller = Router()
   .get('/', async (req, res) => {
     try {
-      const searchCondition = req.query.search
-        ? { $regex: String(req.query.search), $options: 'i' }
+      const halloumiFilter = Boolean(req.query.halloumi)
+        ? { containsHalloumi: true }
         : null;
 
-      const recipes = await Recipe.find(
-        searchCondition
-          ? {
-              $or: [
-                { name: searchCondition },
-                { body: searchCondition },
-                { link: searchCondition }
-              ]
-            }
-          : null
-      );
+      const searchFilter = req.query.search
+        ? {
+            $or: ['name', 'body', 'link'].map(prop => ({
+              [prop]: {
+                $regex: String(req.query.search),
+                $options: 'i'
+              }
+            }))
+          }
+        : null;
+
+      const recipes = await Recipe.find({
+        $and: [halloumiFilter || {}, searchFilter || {}]
+      });
 
       res.json(
         recipes.sort((r1, r2) => Number(r2.updated) - Number(r1.updated))
