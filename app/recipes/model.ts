@@ -2,9 +2,10 @@ import { Document, Schema, model } from 'mongoose';
 
 export interface IRecipe extends Document {
   name: string;
+  containsHalloumi: boolean;
   link?: string;
   notes?: string;
-  containsHalloumi: boolean;
+  // coverImage?: Buffer;
   created: Date;
   updated: Date;
 }
@@ -14,16 +15,19 @@ const RecipeSchema = new Schema({
     type: String,
     required: true
   },
-  link: {
-    type: String
-  },
-  body: {
-    type: String
-  },
   containsHalloumi: {
     type: Boolean,
     default: false
   },
+  link: {
+    type: String
+  },
+  notes: {
+    type: String
+  },
+  // coverImage: {
+  //   type: Buffer
+  // },
   created: {
     type: Date,
     default: Date.now
