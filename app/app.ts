@@ -5,8 +5,14 @@ import bodyParser from 'body-parser';
 import recipesController from './recipes';
 import errorHandler from './errorHandler';
 
+const {
+  PORT = 3000,
+  DB_HOST = 'localhost:27017',
+  DB_NAME = 'loomi-db'
+} = process.env;
+
 mongoose
-  .connect('mongodb://localhost:27017/loomi-db', { useNewUrlParser: true })
+  .connect(`mongodb://${DB_HOST}/${DB_NAME}`, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
   .catch((err: any) => console.log(err));
 
@@ -15,4 +21,4 @@ express()
   .use(morgan('tiny'))
   .use('/recipes', recipesController)
   .use(errorHandler)
-  .listen(process.env.PORT || 3000, () => console.log('Server running...'));
+  .listen(PORT, () => console.log('Server running...'));

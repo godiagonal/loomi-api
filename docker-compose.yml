@@ -1,15 +1,22 @@
 version: '3'
 services:
-  # app:
-  #   container_name: loomi-api
-  #   restart: always
-  #   build: .
-  #   ports:
-  #     - '80:3000'
-  #   links:
-  #     - loomi-db
-  db:
+  loomi-api:
+    container_name: loomi-api
+    restart: always
+    build: .
+    ports:
+      - '80:3000'
+    links:
+      - loomi-db
+    depends_on:
+      - loomi-db
+    environment:
+      WAIT_HOSTS: loomi-db:27017
+      DB_HOST: loomi-db:27017
+      DB_NAME: loomi-db
+  loomi-db:
     container_name: loomi-db
+    hostname: loomi-db
     restart: always
     image: mongo
     volumes:
