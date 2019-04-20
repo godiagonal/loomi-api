@@ -1,16 +1,18 @@
 import { Router } from 'express';
-import { Recipe } from './model';
+import { Recipe, IRecipe } from './model';
 
 const controller = Router()
   .get('/', async (req, res) => {
     try {
+      const halloumiFilterProp: keyof IRecipe = 'containsHalloumi';
       const halloumiFilter = Boolean(req.query.halloumi)
-        ? { containsHalloumi: true }
+        ? { [halloumiFilterProp]: true }
         : null;
 
+      const searchFilterProps: (keyof IRecipe)[] = ['name', 'notes', 'link'];
       const searchFilter = req.query.search
         ? {
-            $or: ['name', 'body', 'link'].map(prop => ({
+            $or: searchFilterProps.map(prop => ({
               [prop]: {
                 $regex: String(req.query.search),
                 $options: 'i'
@@ -30,6 +32,7 @@ const controller = Router()
       res.status(500).json(err);
     }
   })
+
   .post('/', async (req, res) => {
     try {
       const { _id, ...body } = req.body; // Prevent id from being set manually
@@ -39,6 +42,7 @@ const controller = Router()
       res.status(400).json(err);
     }
   })
+
   .get('/:id', async (req, res) => {
     try {
       const recipe = await Recipe.findOne({ _id: req.params.id });
@@ -54,6 +58,7 @@ const controller = Router()
       .then(recipe => {})
       .catch(err => res.status(500).json(err));
   })
+
   .patch('/:id', async (req, res) => {
     try {
       const info: any = await Recipe.updateOne(
@@ -70,6 +75,7 @@ const controller = Router()
       res.status(500).json(err);
     }
   })
+
   .delete('/:id', async (req, res) => {
     try {
       const info: any = await Recipe.deleteOne({ _id: req.params.id });
@@ -78,6 +84,16 @@ const controller = Router()
       } else {
         res.json({});
       }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  })
+
+  .get('/lucky', async (req, res) => {
+    try {
+      const recipes = await Recipe.find();
+      const index = Math.floor(Math.random() * recipes.length);
+      res.json(recipes[index]);
     } catch (err) {
       res.status(500).json(err);
     }

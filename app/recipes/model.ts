@@ -3,7 +3,7 @@ import { Document, Schema, model } from 'mongoose';
 export interface IRecipe extends Document {
   name: string;
   link?: string;
-  body?: string;
+  notes?: string;
   containsHalloumi: boolean;
   created: Date;
   updated: Date;
