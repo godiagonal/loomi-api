@@ -13,7 +13,9 @@ services:
     environment:
       WAIT_HOSTS: loomi-db:27017
       DB_HOST: loomi-db:27017
-      DB_NAME: loomi-db
+      DB_NAME: $DB_NAME
+      DB_USER: $DB_USER
+      DB_PWD: $DB_PWD
   loomi-db:
     container_name: loomi-db
     hostname: loomi-db
@@ -21,5 +23,10 @@ services:
     image: mongo
     volumes:
       - /Users/$USER/data/loomi-db:/data/db
+      - $PWD/mongo:/docker-entrypoint-initdb.d
+      - $PWD/.env:/.env
     ports:
       - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $DB_ROOT_USER
+      MONGO_INITDB_ROOT_PASSWORD: $DB_ROOT_PWD

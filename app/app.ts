@@ -5,14 +5,18 @@ import bodyParser from 'body-parser';
 import recipesController from './recipes';
 import errorHandler from './errorHandler';
 
-const {
-  PORT = 3000,
-  DB_HOST = 'localhost:27017',
-  DB_NAME = 'loomi-db'
-} = process.env;
+require('custom-env').env();
+const { PORT = 3000, DB_HOST, DB_NAME, DB_USER, DB_PWD } = process.env;
 
 mongoose
-  .connect(`mongodb://${DB_HOST}/${DB_NAME}`, { useNewUrlParser: true })
+  .connect(`mongodb://${DB_HOST}/${DB_NAME}`, {
+    auth: {
+      authSource: 'admin'
+    },
+    user: DB_USER,
+    pass: DB_PWD,
+    useNewUrlParser: true
+  })
   .then(() => console.log('MongoDB Connected'))
   .catch((err: any) => console.log(err));
 
