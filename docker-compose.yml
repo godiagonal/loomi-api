@@ -17,6 +17,8 @@ services:
       DB_NAME:
       DB_USER:
       DB_PWD:
+      API_KEYS:
+      API_CLIENTS:
   loomi-db:
     container_name: loomi-db
     hostname: loomi-db
