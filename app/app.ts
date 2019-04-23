@@ -2,8 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import { genericErrorHandler, notFoundErrorHandler } from './errorHandler';
 import recipesController from './recipes';
-import errorHandler from './errorHandler';
 
 require('custom-env').env();
 const { PORT = 3000, DB_HOST, DB_NAME, DB_USER, DB_PWD } = process.env;
@@ -24,5 +24,6 @@ express()
   .use(bodyParser.json())
   .use(morgan('tiny'))
   .use('/recipes', recipesController)
-  .use(errorHandler)
+  .use(genericErrorHandler)
+  .use(notFoundErrorHandler)
   .listen(PORT, () => console.log('Server running...'));
