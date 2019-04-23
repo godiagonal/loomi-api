@@ -2,7 +2,7 @@ version: '3'
 services:
   loomi-api:
     container_name: loomi-api
-    restart: always
+    restart: unless-stopped
     build: .
     ports:
       - '80:3000'
@@ -19,10 +19,10 @@ services:
   loomi-db:
     container_name: loomi-db
     hostname: loomi-db
-    restart: always
+    restart: unless-stopped
     image: mongo
     volumes:
-      - /Users/$USER/data/loomi-db:/data/db
+      - $HOME/data/loomi-db:/data/db
       - $PWD/mongo:/docker-entrypoint-initdb.d
       - $PWD/.env:/.env
     ports:
