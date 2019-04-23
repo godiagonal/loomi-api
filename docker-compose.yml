@@ -11,11 +11,12 @@ services:
     depends_on:
       - loomi-db
     environment:
+      NODE_ENV: production
       WAIT_HOSTS: loomi-db:27017
       DB_HOST: loomi-db:27017
-      DB_NAME: $DB_NAME
-      DB_USER: $DB_USER
-      DB_PWD: $DB_PWD
+      DB_NAME:
+      DB_USER:
+      DB_PWD:
   loomi-db:
     container_name: loomi-db
     hostname: loomi-db
