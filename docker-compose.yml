@@ -27,9 +27,11 @@ services:
     volumes:
       - $HOME/data/loomi-db:/data/db
       - $PWD/mongo:/docker-entrypoint-initdb.d
-      - $PWD/.env:/.env
     ports:
       - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: $DB_ROOT_USER
       MONGO_INITDB_ROOT_PASSWORD: $DB_ROOT_PWD
+      DB_NAME:
+      DB_USER:
+      DB_PWD:
