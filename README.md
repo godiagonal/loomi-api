@@ -11,7 +11,7 @@ Database files will be saved in `$HOME/data/loomi-db/` on the host system.
 
 ## Development
 
-Copy `.env-example` and name the new file `.env`. Assign appropriate (strong!) passwords to variables `DB_ROOT_PWD` and `DB_PWD`.
+Copy `.env-example` and name the new file `.env`.
 
 ```bash
 # Run MongoDB container, append -d flag to run in background
